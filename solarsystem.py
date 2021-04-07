@@ -10,7 +10,6 @@ sim_duration = 31  #2 * 365                # (int) simulation duration in days
 m_earth = 5.9722e24 / 1.98847e30  # Mass of Earth relative to mass of the sun
 m_moon = 7.3477e22 / 1.98847e30
 
-
 class Object:  # define the objects: the Sun, Earth, Mercury, etc
     def __init__(self, name, rad, color, r, v):
         self.name = name
@@ -71,12 +70,15 @@ class SolarSystem:
             annotations.append(p.annotation)
         #self.timestamp.set_text(
         #    'Giorno: ' + Time(self.time, format='jd', out_subfmt='date').iso)
-        self.timestamp.set_text(
-            'Giorno: ' + Time(self.time, format='jd').iso)
+        intestazione = 'Giorno: ' + Time(self.time, format='jd').iso        
+        self.timestamp.set_text(intestazione[:18]) #primi 18 caratteri
+       #     'Giorno: ' + Time(self.time, format='jd').iso)
         return plots + lines + annotations + [self.timestamp]
 
 
 plt.style.use('dark_background')
+img=plt.imread('background.jpg')
+implot = plt.imshow(img)
 fig = plt.figure(figsize=[6, 6])
 ax = plt.axes([0., 0., 1., 1.], xlim=(-1.8, 1.8), ylim=(-1.8, 1.8))
 ax.set_aspect('equal')
@@ -119,7 +121,9 @@ ani = animation.FuncAnimation(
     blit=True,
     interval=200,
 )
-#plt.show()
-writergif = animation.PillowWriter(fps=7)
-ani.save('solarsystem.gif', writer=writergif)
-#ani.save('solar_system_6in_150dpi.mp4', fps=60, dpi=150)
+#plt.show() #output IDE
+#writergif = animation.PillowWriter(fps=7)   #output gif scrittura
+#ani.save('solarsystem.gif', writer=writergif) #output gif file
+#f = r"C:\Users\gvespia\SolarSystem\solar_system.mp4"
+writervideo = animation.FFMpegWriter(fps=7)  #output mp4 writer
+ani.save('solarsystem.mp4', writer=writervideo) #output mp4 file
