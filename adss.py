@@ -5,7 +5,9 @@ import matplotlib.animation as animation
 from astropy.time import Time
 from astroquery.jplhorizons import Horizons
 
-sim_start_date = "2022-03-01"  # data di inizio
+#ogni mese modificare tre campi, sim_start_date, sim_duration, ani.save
+
+sim_start_date = "2022-07-01"  # data di inizio
 fpd=6 # frames al giorno
 sim_duration = 30*fpd  # mettere 29, 30 o 31 a seconda della data dell'ultimo frame, dipende dalle approssimazioni
 
@@ -77,7 +79,7 @@ colors = ['gray', 'orange', 'cyan', 'chocolate', 'white', 'white', 'white', 'whi
     'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
 #rinonimo solo per novembre 2021 'L1: 4 missioni\nLuna: 6 missioni\nL2: 2 missioni' in 'Luna-L1-L2: 12 missioni'
 corpo=[[1, 2, 3, 4, -135, -49, -96, -144, -37, -121, -64, -234, -61, -98, -31, -32],
-    ['Mercurio', 'Venere: Akatsuki', 'Luna-L1-L2: 13 missioni', 'Marte: 11 missioni',
+    ['Mercurio', 'Venere: Akatsuki', 'Luna-L1-L2: 14 missioni', 'Marte: 11 missioni',
     'DART', 'Lucy', 'Parker Solar Probe', 'Solar Orbiter', 'Hayabusa 2', 'BepiColombo',
     'Osiris-REx', 'Stereo A', 'Juno', 'New Horizons', 'Voyager 1','Voyager 2']]
 
@@ -104,4 +106,4 @@ ani = animation.FuncAnimation(
 #ani.save('solarsystem.gif', writer=writergif) #output gif file
 
 writervideo = animation.FFMpegWriter(fps=30)  #output mp4 writer
-ani.save('adss202203.mp4', writer=writervideo) #output mp4 file
+ani.save('adss202207.mp4', writer=writervideo) #output mp4 file
