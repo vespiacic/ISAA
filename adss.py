@@ -7,9 +7,9 @@ from astroquery.jplhorizons import Horizons
 
 #ogni mese modificare tre campi, sim_start_date, sim_duration, ani.save
 
-sim_start_date = "2022-07-01"  # data di inizio
+sim_start_date = "2022-11-01"  # data di inizio
 fpd=6 # frames al giorno
-sim_duration = 30*fpd  # mettere 29, 30 o 31 a seconda della data dell'ultimo frame, dipende dalle approssimazioni
+sim_duration = 29*fpd  # mettere 29, 30 o 31 a seconda della data dell'ultimo frame, dipende dalle approssimazioni
 
 class Object:  # definisce i corpi, i 4 pianeti interni e le sonde del sistema solare
     def __init__(self, name, rad, color, r, v):
@@ -75,16 +75,20 @@ ax.set_aspect('equal')
 ax.axis('off')
 ss = SolarSystem(Object("Sole", 5, 'yellow', [0, 0, 0], [0, 0, 0]))
 ss.time = Time(sim_start_date).jd
-colors = ['gray', 'orange', 'cyan', 'chocolate', 'white', 'white', 'white', 'white',
-    'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
-#rinonimo solo per novembre 2021 'L1: 4 missioni\nLuna: 6 missioni\nL2: 2 missioni' in 'Luna-L1-L2: 12 missioni'
-corpo=[[1, 2, 3, 4, -135, -49, -96, -144, -37, -121, -64, -234, -61, -98, -31, -32],
-    ['Mercurio', 'Venere: Akatsuki', 'Luna-L1-L2: 14 missioni', 'Marte: 11 missioni',
-    'DART', 'Lucy', 'Parker Solar Probe', 'Solar Orbiter', 'Hayabusa 2', 'BepiColombo',
+#colors = ['gray', 'orange', 'cyan', 'chocolate', 'white', 'white', 'white', 'white',
+ #   'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white']
+#Luna: 8: Chang'e 3, Chang'e 4, Chang'e 5, THEMIS-ARTEMIS, LRO, Chandrayaan, CAPSTONE, KPLO
+#L1: 4: ACE, Wind, Soho, DSCOVR
+#L2: 3: Gaia, Spektr-RG, Webb
+# Marte: 11: Odyssey, MRO, MAVEN, Mars Express, TGO, Tianwen-1, Hope, MOM, Perseverance, Curiosity, Insight
+corpo=[[1, 2, 3, 4, 20065803, -49, -96, -144, -37, -121, -64, -234, -61, -98, -31, -32],
+    ['Mercurio', 'Venere: Akatsuki', 'Luna-L1-L2: 15 missioni', 'Marte: 10 missioni',
+    'LICIACube', 'Lucy', 'Parker Solar Probe', 'Solar Orbiter', 'Hayabusa 2', 'BepiColombo',
     'Osiris-REx', 'Stereo A', 'Juno', 'New Horizons', 'Voyager 1','Voyager 2']]
 
 for i, nasaid in enumerate(corpo[0]):
-    obj = Horizons(id=nasaid, location="@sun", epochs=ss.time, id_type='id').vectors()
+    #obj = Horizons(id=nasaid, location="@sun", epochs=ss.time, id_type='id').vectors()
+    obj = Horizons(id=nasaid, location="@sun", epochs=ss.time).vectors()
     ss.add_planet(Object(corpo[1][i], 2, colors[i],
                [np.double(obj[xi]) for xi in ['x', 'y', 'z']],
                [np.double(obj[vxi]) for vxi in ['vx', 'vy', 'vz']]))
@@ -106,4 +110,4 @@ ani = animation.FuncAnimation(
 #ani.save('solarsystem.gif', writer=writergif) #output gif file
 
 writervideo = animation.FFMpegWriter(fps=30)  #output mp4 writer
-ani.save('adss202207.mp4', writer=writervideo) #output mp4 file
+ani.save('adss202211.mp4', writer=writervideo) #output mp4 file
